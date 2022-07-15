@@ -1,8 +1,4 @@
 #include"Game.h"
-
-
-
-
 int main() {
 	bool* Dead;
 	Rock* rock;

@@ -1,17 +1,14 @@
 #include "Game.h"
 /// <summary>
-/// Cordiantes of where the snake is on the consle :)
+/// Changes the Direction of The Snake
+/// 
 /// </summary>
-
-//Game Variables :3
-
-
-
-void GameOver()
-{
-}
-
-
+/// <param name="SnakeDirection">Where the Snake is Heading</param>
+/// <param name="RightKey"></param>
+/// <param name="LeftKey"></param>
+/// <param name="OldRight"></param>
+/// <param name="OldLeft"></param>
+/// <param name="snake"></param>
 void Movement(int* SnakeDirection, bool* RightKey, bool* LeftKey, bool* OldRight, bool* OldLeft, std::list<SnakeSegment>* snake)
 {
 	auto t1 = std::chrono::system_clock::now();
@@ -53,8 +50,21 @@ void Movement(int* SnakeDirection, bool* RightKey, bool* LeftKey, bool* OldRight
 	snake->pop_back();
 }
 
+
+/// <summary>
+/// Logic For when you hit a wall/Food/Rock
+/// </summary>
+/// <param name="screen"></param>
+/// <param name="Dead"></param>
+/// <param name="Score"></param>
+/// <param name="snake"></param>
+/// <param name="Foods"></param>
+/// <param name="rock"></param>
 void Collision_Detection(wchar_t* screen, bool* Dead, int* Score, std::list<SnakeSegment>* snake,std::list<Food>* Foods,Rock* rock)
 {
+
+
+#pragma region Hit an Obstical 
 
 
 
@@ -67,6 +77,12 @@ void Collision_Detection(wchar_t* screen, bool* Dead, int* Score, std::list<Snak
 		*Dead = true;
 	if (snake->front().x == rock->x && snake->front().y == rock->y)
 		*Dead = true;
+#pragma endregion
+
+#pragma region Ate?
+
+
+
 	for (std::list<Food>::iterator food = Foods->begin(); food != Foods->end(); food++)
 	{
 
@@ -93,19 +109,37 @@ void Collision_Detection(wchar_t* screen, bool* Dead, int* Score, std::list<Snak
 
 
 		}
-	
+
 }
-	for (std::list<SnakeSegment>::iterator i = snake->begin(); i != snake->end(); i++) {
+#pragma endregion
+
+
+#pragma region Hit Self?
+
+	for (std::list<SnakeSegment>::iterator i = snake->begin(); i != snake->end(); i++)
+	{
 		if (i != snake->begin() && i->x == snake->front().x && i->y == snake->front().y) {
 			*Dead = true;
 		}
 	}
+#pragma endregion
+
 }
 
+
+/// <summary>
+/// All the Visual Stuff ^>^
+/// </summary>
+/// <param name="Screen">Where else would you play?</param>
+/// <param name="Dead">Is the player dead?</param>
+/// <param name="Score">How Good are they?</param>
+/// <param name="snake">slither slither</param>
+/// <param name="Foods">Where the food is</param>
+/// <param name="rock">Where the obstical is</param>
 void UpdateScreen(wchar_t* screen, bool* Dead, int* Score, std::list<SnakeSegment>* snake ,std::list<Food>* Foods,Rock* rock)
 {
 
-	//Draw Screen :3
+
 	for (int i = 0; i < Area; i++) screen[i] = L' ';
 	for (int i = 0; i < nScreenWidth; i++) {
 		screen[i] = L'=';
