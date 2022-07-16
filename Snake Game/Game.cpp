@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Game.hpp"
 /// <summary>
 /// Changes the Direction of The Snake
 /// 
@@ -12,7 +12,7 @@
 void Movement(int* SnakeDirection, bool* RightKey, bool* LeftKey, bool* OldRight, bool* OldLeft, std::list<SnakeSegment>* snake)
 {
 	auto t1 = std::chrono::system_clock::now();
-	while ((std::chrono::system_clock::now() - t1) < ((*SnakeDirection % 2 == 1) ? std::chrono::milliseconds(120) : std::chrono::milliseconds(200))) {
+	while ((std::chrono::system_clock::now() - t1) < ((*SnakeDirection % 2 == 1) ? std::chrono::milliseconds(120) : std::chrono::milliseconds(140))) {
 		*RightKey = (0x8000 & GetAsyncKeyState((unsigned char)('\x27'))) != 0;
 		*LeftKey = (0x8000 & GetAsyncKeyState((unsigned char)('\x25'))) != 0;
 

@@ -1,5 +1,9 @@
-#include"Game.h"
+#include<array>
+#include"SnakeAi.hpp"
 int main() {
+	
+	
+	SnakeAi snek;
 	bool* Dead;
 	Rock* rock;
 	std::list<SnakeSegment>* snake;
@@ -10,7 +14,7 @@ int main() {
 	int* SnakeDirection;
 
 	bool* LeftKey{}, RightKey{}, OldLeft{}, OldRight = false;
-
+	
 	//Screen Buffer
 	wchar_t *screen = new wchar_t[Area];
 	HANDLE hConsle = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
@@ -29,12 +33,14 @@ int main() {
 		int SnakeDirection = 3;
 
 		bool LeftKey{}, RightKey{}, OldLeft{}, OldRight = false;
-
+		//std::array< SnakeAi, 50> sneks;
+		
 
 		
 		while (!Dead)
 		{
-
+		
+			snek.BestMove(&snake.front(), &Foods, &SnakeDirection);
 			
 			Movement(&SnakeDirection,&RightKey,&LeftKey,&OldRight,&OldLeft,&snake);
 
